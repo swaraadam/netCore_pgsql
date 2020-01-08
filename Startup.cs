@@ -10,6 +10,8 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
+using loccitane_webapi.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace loccitane_webapi
 {
@@ -26,6 +28,8 @@ namespace loccitane_webapi
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers();
+            services.AddEntityFrameworkNpgsql()
+                .AddDbContext<LoccitaneWebApiContext>(opt => opt.UseNpgsql(Configuration.GetConnectionString("LoccitaneWebApiConnection")));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
